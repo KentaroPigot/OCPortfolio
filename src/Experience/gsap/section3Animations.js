@@ -12,18 +12,32 @@ export default class section3Animations {
     this.text = document.querySelectorAll(".section--2_text");
 
     this.backgroundZones = document.querySelector(".bg-zone-container");
+    this.allCols = document.querySelectorAll(".bg-zone");
 
     this.background = document.querySelectorAll('[class^="section--3_bg-"]');
     this.animSquares = document.querySelectorAll(
       '[class^="section--3_animSquare-"]'
     );
 
-    this.col1 = document.querySelector(".zone_6");
-    this.col2 = document.querySelector(".zone_4");
-    this.col3 = document.querySelector(".zone_2");
-    this.col4 = document.querySelector(".zone_1");
-    this.col5 = document.querySelector(".zone_3");
-    this.col6 = document.querySelector(".zone_5");
+    this.topCols = document.querySelectorAll('[class*="zone_"][class$="-2"]');
+
+    this.bottomCols = document.querySelectorAll(
+      '[class*="zone_"]:not([class$="-2"])'
+    );
+
+    this.col1 = document.querySelector(".zone_6-1");
+    this.col2 = document.querySelector(".zone_4-1");
+    this.col3 = document.querySelector(".zone_2-1");
+    this.col4 = document.querySelector(".zone_1-1");
+    this.col5 = document.querySelector(".zone_3-1");
+    this.col6 = document.querySelector(".zone_5-1");
+
+    this.col1_2 = document.querySelector(".zone_6-2");
+    this.col2_2 = document.querySelector(".zone_4-2");
+    this.col3_2 = document.querySelector(".zone_2-2");
+    this.col4_2 = document.querySelector(".zone_1-2");
+    this.col5_2 = document.querySelector(".zone_3-2");
+    this.col6_2 = document.querySelector(".zone_5-2");
 
     this.line1 = document.querySelector(".line_4-1");
     this.line2 = document.querySelector(".line_2-1");
@@ -151,6 +165,66 @@ export default class section3Animations {
         "start"
       )
       .to(
+        this.col1_2,
+        {
+          duration: 1.5,
+          height: "100%",
+          top: "0",
+          ease: "power3.inOut",
+        },
+        "start"
+      )
+      .to(
+        this.col2_2,
+        {
+          duration: 1.5,
+          height: "100%",
+          top: "0",
+          ease: "power3.inOut",
+        },
+        "start"
+      )
+      .to(
+        this.col3_2,
+        {
+          duration: 1.5,
+          height: "100%",
+          top: "0",
+          ease: "power3.inOut",
+        },
+        "start"
+      )
+      .to(
+        this.col4_2,
+        {
+          duration: 1.5,
+          height: "100%",
+          top: "0",
+          ease: "power3.inOut",
+        },
+        "start"
+      )
+      .to(
+        this.col5_2,
+        {
+          duration: 1.5,
+          height: "100%",
+          top: "0",
+          ease: "power3.inOut",
+        },
+        "start"
+      )
+      .to(
+        this.col6_2,
+        {
+          duration: 1.5,
+          height: "100%",
+          top: "0",
+          ease: "power3.inOut",
+        },
+        "start"
+      )
+      .to(
         this.line1,
         {
           duration: 1.5,
@@ -241,7 +315,7 @@ export default class section3Animations {
         "start"
       )
       .to(this.text, { duration: 1, opacity: 0 }, "start")
-      .to(this.slide, { duration: 1, transform: "translateX(100%)" }, "start")
+      // .to(this.slide, { duration: 1, transform: "translateX(100%)" }, "start")
       .addLabel("backgroundSet-=0.2")
       .to(this.section3, { duration: 1, autoAlpha: 1 }, "backgroundSet")
       .to(
@@ -249,9 +323,15 @@ export default class section3Animations {
         { duration: 0, opacity: 0, autoAlpha: 0 },
         "backgroundSet"
       )
+      // .to(this.allCols, { duration: 1.5, height: "0%" }, "backgroundSet+=0.7")
       .to(
-        this.backgroundZones,
-        { duration: 1.5, opacity: 0 },
+        this.bottomCols,
+        { stagger: 0.15, duration: 1, height: "0%" },
+        "backgroundSet+=0.60"
+      )
+      .to(
+        this.topCols,
+        { stagger: 0.15, duration: 1, height: "0%" },
         "backgroundSet+=0.7"
       );
 
@@ -259,7 +339,6 @@ export default class section3Animations {
   }
 
   hover(areaString) {
-    this.tlHover = gsap.timeline({ paused: true });
     const area = parseInt(areaString);
     let currentArea;
     switch (area) {
@@ -272,9 +351,17 @@ export default class section3Animations {
       case 3:
         currentArea = this.area3;
         break;
+      default:
+        currentArea = undefined;
+    }
+
+    if (!currentArea) {
+      return;
     }
 
     // console.log(currentArea);
+
+    this.tlHover = gsap.timeline({ paused: true });
 
     this.tlHover
       .addLabel("start")

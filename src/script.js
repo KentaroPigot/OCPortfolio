@@ -3,40 +3,33 @@ import SectionProjects from "./Experience/worlds/SectionProjects.js";
 import CursorStyle from "./cursorStyle.js";
 import section2Animations from "../src/Experience/gsap/section2Animations.js";
 import section3Animations from "../src/Experience/gsap/section3Animations.js";
+import section4Animations from "../src/Experience/gsap/section4Animations.js";
+import section4_2Animations from "../src/Experience/gsap/section4_2Animations.js";
+import section5Animations from "../src/Experience/gsap/section5Animations.js";
 
-// document.documentElement.classList.add("lock-scroll");
 const landing = new Landing1(document.querySelector("canvas.webgl"));
-// const sectionProjects = new SectionProjects(
-//   document.querySelector("canvas.webGlProjects")
-// );
 const section3 = document.querySelector(".section--3");
-const section4 = document.querySelector(".section--4");
-const section5 = document.querySelector(".section--5");
-const section6 = document.querySelector(".section--6");
 const section2Animation = new section2Animations().animate();
 const section3Animation = new section3Animations().transition();
 const section3hover = new section3Animations();
+const section4Animation = new section4Animations().transition();
+const section4_2Animation = new section4_2Animations().transition();
+const section5Animation = new section5Animations().transition();
 let currenSection = 0;
 let screenYFinger;
 let prevScreenYFinger;
 let isTouching = false;
 let isAnimating = false;
-let isScrollingSection = false;
+// let isScrollingSection = false;
 
 function playAnimationOnScroll(event) {
-  // console.log(window.scrollY);
-  // console.log(currenSection);
-  // console.log(event.deltaY);
-  // console.log(isAnimating);
-  // console.log(event);
-
   if (isAnimating) return;
   const delta = event.deltaY;
   isAnimating = true;
 
+  // Animate forward
   if (delta > 0) {
     if (currenSection === 0) {
-      // console.log("hey1");
       currenSection = 1;
       section2Animation.play().eventCallback("onComplete", () => {
         isAnimating = false;
@@ -45,13 +38,27 @@ function playAnimationOnScroll(event) {
       currenSection = 2;
       section3Animation.play().eventCallback("onComplete", () => {
         isAnimating = false;
-        section4.classList.add("active");
-        section5.classList.add("active");
-        section6.classList.add("active");
+      });
+    } else if (currenSection === 2) {
+      currenSection = 3;
+      section4Animation.play().eventCallback("onComplete", () => {
+        isAnimating = false;
+      });
+    } else if (currenSection === 3) {
+      currenSection++;
+      section4_2Animation.play().eventCallback("onComplete", () => {
+        isAnimating = false;
+      });
+    } else if (currenSection === 4) {
+      currenSection++;
+      section5Animation.play().eventCallback("onComplete", () => {
+        isAnimating = false;
       });
     } else {
       isAnimating = false;
     }
+
+    // Animate backward
   } else if (delta < 0) {
     if (currenSection === 1) {
       currenSection = 0;
@@ -59,20 +66,29 @@ function playAnimationOnScroll(event) {
         isAnimating = false;
       });
     } else if (currenSection === 2) {
-      if (window.scrollY === 0) {
-        section4.classList.remove("active");
-        section5.classList.remove("active");
-        section6.classList.remove("active");
-      }
-      if (window.scrollY > 0) {
-        isAnimating = false;
-        return;
-      }
+      // if (window.scrollY === 0) {
+      // }
+      // if (window.scrollY > 0) {
+      //   isAnimating = false;
+      //   return;
+      // }
       currenSection = 1;
-      section4.classList.remove("active");
-      section5.classList.remove("active");
-      section6.classList.remove("active");
       section3Animation.reverse().eventCallback("onReverseComplete", () => {
+        isAnimating = false;
+      });
+    } else if (currenSection === 3) {
+      currenSection = 2;
+      section4Animation.reverse().eventCallback("onReverseComplete", () => {
+        isAnimating = false;
+      });
+    } else if (currenSection === 4) {
+      currenSection--;
+      section4_2Animation.reverse().eventCallback("onReverseComplete", () => {
+        isAnimating = false;
+      });
+    } else if (currenSection === 5) {
+      currenSection--;
+      section5Animation.reverse().eventCallback("onReverseComplete", () => {
         isAnimating = false;
       });
     } else {
@@ -84,20 +100,13 @@ function playAnimationOnScroll(event) {
 const handleTouchMove = (e) => {
   if (isAnimating) return;
 
-  // console.log(currenSection);
-
-  //   on récupère la position
   screenYFinger = e.touches[0].screenY;
 
-  // console.log(screenYFinger - prevScreenYFinger);
-
-  // Get first finger position to compare and get the travelled finger distance.
   if (!isTouching) {
     prevScreenYFinger = screenYFinger;
     isTouching = true;
   }
 
-  // Anime seulement si distance minimal du doigt sur écran parcouru.
   if (screenYFinger - prevScreenYFinger < -20) {
     if (currenSection === 0) {
       isAnimating = true;
@@ -110,9 +119,24 @@ const handleTouchMove = (e) => {
       currenSection = 2;
       section3Animation.play().eventCallback("onComplete", () => {
         isAnimating = false;
-        section4.classList.add("active");
-        section5.classList.add("active");
-        section6.classList.add("active");
+      });
+    } else if (currenSection === 2) {
+      isAnimating = true;
+      currenSection = 3;
+      section4Animation.play().eventCallback("onComplete", () => {
+        isAnimating = false;
+      });
+    } else if (currenSection === 3) {
+      isAnimating = true;
+      currenSection = 4;
+      section4_2Animation.play().eventCallback("onComplete", () => {
+        isAnimating = false;
+      });
+    } else if (currenSection === 4) {
+      isAnimating = true;
+      currenSection = 5;
+      section5Animation.play().eventCallback("onComplete", () => {
+        isAnimating = false;
       });
     }
   }
@@ -126,9 +150,6 @@ const handleTouchMove = (e) => {
       });
     } else if (currenSection === 2) {
       if (window.scrollY === 0) {
-        section4.classList.remove("active");
-        section5.classList.remove("active");
-        section6.classList.remove("active");
       }
       if (window.scrollY > 0) {
         isAnimating = false;
@@ -139,9 +160,24 @@ const handleTouchMove = (e) => {
       section3Animation.reverse().eventCallback("onReverseComplete", () => {
         isAnimating = false;
       });
-      section4.classList.remove("active");
-      section5.classList.remove("active");
-      section6.classList.remove("active");
+    } else if (currenSection === 3) {
+      isAnimating = true;
+      currenSection = 2;
+      section4Animation.reverse().eventCallback("onReverseComplete", () => {
+        isAnimating = false;
+      });
+    } else if (currenSection === 4) {
+      isAnimating = true;
+      currenSection = 3;
+      section4_2Animation.reverse().eventCallback("onReverseComplete", () => {
+        isAnimating = false;
+      });
+    } else if (currenSection === 5) {
+      isAnimating = true;
+      currenSection = 4;
+      section5Animation.reverse().eventCallback("onReverseComplete", () => {
+        isAnimating = false;
+      });
     }
   }
 };
@@ -163,6 +199,7 @@ const hoverAnimation = () => {
   hoverAreas.forEach((area) => {
     area.addEventListener("mouseover", (e) => {
       const area = e.target.dataset.area;
+      if (!area) return;
       section3hover.hover(area).play();
     });
     area.addEventListener("mouseleave", (e) => {
@@ -178,6 +215,3 @@ document.addEventListener("touchmove", handleTouchMove, false);
 document.addEventListener("touchend", handleTouchEnd, false);
 
 // 2. Mettre setTimeOut pour le hover
-// 4. Créer 5ème zone. Et essayer de bouger le pc (toujours scroll)
-
-// (5. Corriger slider portfolio)

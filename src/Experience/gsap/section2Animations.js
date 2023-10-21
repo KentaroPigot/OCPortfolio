@@ -14,12 +14,19 @@ export default class section2Animations {
 
     this.cols = document.querySelectorAll('[class^="zone"]');
 
-    this.col1 = document.querySelector(".zone_6");
-    this.col2 = document.querySelector(".zone_4");
-    this.col3 = document.querySelector(".zone_2");
-    this.col4 = document.querySelector(".zone_1");
-    this.col5 = document.querySelector(".zone_3");
-    this.col6 = document.querySelector(".zone_5");
+    this.col1 = document.querySelector(".zone_6-1");
+    this.col2 = document.querySelector(".zone_4-1");
+    this.col3 = document.querySelector(".zone_2-1");
+    this.col4 = document.querySelector(".zone_1-1");
+    this.col5 = document.querySelector(".zone_3-1");
+    this.col6 = document.querySelector(".zone_5-1");
+
+    this.col1_2 = document.querySelector(".zone_6-2");
+    this.col2_2 = document.querySelector(".zone_4-2");
+    this.col3_2 = document.querySelector(".zone_2-2");
+    this.col4_2 = document.querySelector(".zone_1-2");
+    this.col5_2 = document.querySelector(".zone_3-2");
+    this.col6_2 = document.querySelector(".zone_5-2");
 
     this.line1 = document.querySelector(".line_4-1");
     this.line2 = document.querySelector(".line_2-1");
@@ -44,7 +51,74 @@ export default class section2Animations {
     this.tl = gsap.timeline({ paused: true });
 
     this.tl
-      .addLabel("start")
+      .addLabel("prestart")
+      .to(
+        this.col1_2,
+        {
+          duration: 1,
+          height: "80%",
+          // bottom: "7%",
+          top: "13%",
+          ease: "power3.inOut",
+        },
+        "prestart"
+      )
+      .to(
+        this.col2_2,
+        {
+          duration: 1,
+          height: "80%",
+          // bottom: "25%",
+          top: "-5%",
+          ease: "power3.inOut",
+        },
+        "prestart"
+      )
+      .to(
+        this.col3_2,
+        {
+          duration: 1,
+          height: "80%",
+          // bottom: "6%",
+          top: "14%",
+          ease: "power3.inOut",
+        },
+        "prestart"
+      )
+      .to(
+        this.col4_2,
+        {
+          duration: 1,
+          height: "75%",
+          // bottom: "0%",
+          top: "25%",
+          ease: "power3.inOut",
+        },
+        "prestart"
+      )
+      .to(
+        this.col5_2,
+        {
+          duration: 1,
+          height: "75%",
+          // bottom: "9%",
+          top: "16%",
+          ease: "power3.inOut",
+        },
+        "prestart"
+      )
+      .to(
+        this.col6_2,
+        {
+          duration: 1,
+          height: "35%",
+          // bottom: "15%",
+          top: "50%",
+          ease: "power3.inOut",
+        },
+        "prestart"
+      )
+      .addLabel("start", "-=0.85")
       .to(
         this.col1,
         {
@@ -168,9 +242,9 @@ export default class section2Animations {
         },
         "start"
       )
-      .to(this.more, { duration: 1, opacity: 0 }, "start")
+      // .to(this.more, { duration: 1, opacity: 0 }, "start")
       .to(this.marginText, { duration: 1, opacity: 0 }, "start")
-      .to(this.slide, { duration: 1, transform: "translateX(0%)" }, "start")
+      // .to(this.slide, { duration: 1, transform: "translateX(0%)" }, "start")
       .to(this.text, { duration: 1, autoAlpha: 1 }, "start+=1")
       .to(this.title, { duration: 1, opacity: 0 }, "start");
     // .to(material, { duration: 1, value: 10 }, "start");
